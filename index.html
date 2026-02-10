@@ -10,11 +10,11 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Courier New', Courier, monospace; /* Typewriter feel for the note */
+            font-family: 'Courier New', Courier, monospace;
         }
 
         body {
-            background-color: #ffe6ea; /* Soft Pink Background */
+            background-color: #ffe6ea;
             color: #000;
             height: 100vh;
             display: flex;
@@ -45,7 +45,7 @@
 
         /* --- 1. PASSWORD SCREEN --- */
         #password-screen {
-            background-color: #000; /* Black background for contrast */
+            background-color: #000;
             color: #fff;
             z-index: 10;
         }
@@ -70,6 +70,10 @@
             margin-bottom: 20px;
         }
 
+        input::placeholder {
+            color: #555; /* Darker placeholder so it's subtle */
+        }
+
         button.primary-btn {
             background-color: #fff;
             color: #000;
@@ -89,15 +93,17 @@
         .error-msg {
             color: #ff4d4d;
             height: 20px;
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 0.9rem;
+            font-weight: bold;
+            min-height: 25px; /* Keeps space so layout doesn't jump */
         }
 
-        /* --- 2. NOTE SCREEN (The Uncrumpling) --- */
+        /* --- 2. NOTE SCREEN --- */
         #note-screen {
             background-color: #ffe6ea;
             z-index: 9;
-            perspective: 1000px; /* For 3D effect */
+            perspective: 1000px;
         }
 
         .paper {
@@ -106,20 +112,18 @@
             max-width: 400px;
             padding: 40px 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            font-family: 'Brush Script MT', cursive; /* Handwriting font */
+            font-family: 'Brush Script MT', cursive;
             font-size: 1.5rem;
             line-height: 1.6;
             color: #000;
             transform-origin: center;
-            transition: transform 1.5s ease-out; /* The smooth uncrumple */
+            transition: transform 1.5s ease-out;
         }
 
-        /* The "Crumbled" State */
         .crumpled {
             transform: scale(0.1) rotate(720deg);
         }
 
-        /* The "Uncrumbled" State */
         .uncrumpled {
             transform: scale(1) rotate(0deg);
         }
@@ -136,7 +140,7 @@
             font-size: 0.8rem;
             color: #888;
             font-family: sans-serif;
-            animation: fadeIn 2s 2s forwards; /* Delay appearance */
+            animation: fadeIn 2s 2s forwards;
             opacity: 0;
             cursor: pointer;
         }
@@ -170,7 +174,7 @@
             text-decoration: none;
             font-size: 1.2rem;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4); /* Pink Glow */
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
             transition: transform 0.2s;
             cursor: pointer;
             border: none;
@@ -181,16 +185,7 @@
             transform: scale(0.95);
         }
 
-        /* --- 4. CONTENT VIEWS (Gallery & Music) --- */
-        .content-view {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-        }
-
+        /* --- 4. CONTENT VIEWS --- */
         .back-btn {
             position: absolute;
             top: 20px;
@@ -207,7 +202,7 @@
             padding: 15px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             transform: rotate(-3deg);
-            margin-top: 50px; /* Spacing from top */
+            margin-top: 50px;
             width: 85%;
             max-width: 350px;
         }
@@ -231,7 +226,7 @@
             color: black;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: transform 0.2s;
-            border-left: 5px solid #ff69b4; /* Pink accent */
+            border-left: 5px solid #ff69b4;
         }
 
         .song-link:active {
@@ -257,14 +252,13 @@
         .music-icon {
             font-size: 1.5rem;
         }
-
     </style>
 </head>
 <body>
 
     <div id="password-screen" class="screen">
         <h2>Enter Password</h2>
-        <input type="password" id="password-input" placeholder="DDMMYYYY">
+        <input type="password" id="password-input" placeholder="???">
         <button class="primary-btn" onclick="checkPassword()">Unlock My Heart</button>
         <div class="error-msg" id="error-msg"></div>
     </div>
@@ -325,6 +319,18 @@
     <script>
         // --- LOGIC ---
 
+        // List of funny messages when she gets it wrong
+        const wrongMessages = [
+            "Nope! Try again beautiful.",
+            "Wrong! Do you even know me? 😜",
+            "Not that one! Think harder...",
+            "Are you guessing? 🤨",
+            "Hint: It's a very special day!",
+            "Ouch. Wrong date!",
+            "Really? You forgot? 🥺",
+            "Access Denied: Not enough love detected!"
+        ];
+
         function checkPassword() {
             const input = document.getElementById('password-input').value;
             const errorMsg = document.getElementById('error-msg');
@@ -335,8 +341,11 @@
                 document.getElementById('password-screen').classList.add('hidden');
                 revealNote();
             } else {
-                // Wrong Password
-                errorMsg.innerText = "Wrong date, try again beautiful.";
+                // Wrong Password - Pick a random funny message
+                const randomMsg = wrongMessages[Math.floor(Math.random() * wrongMessages.length)];
+                errorMsg.innerText = randomMsg;
+                
+                // Clear input
                 document.getElementById('password-input').value = "";
             }
         }
@@ -347,13 +356,11 @@
             
             noteScreen.classList.remove('hidden');
             
-            // Wait a split second then uncrumple
             setTimeout(() => {
                 paper.classList.remove('crumpled');
                 paper.classList.add('uncrumpled');
             }, 100);
 
-            // If coming back from menu, we ensure the hint is visible
             document.querySelector('.continue-hint').style.display = 'block';
         }
 
@@ -367,7 +374,6 @@
             const noteScreen = document.getElementById('note-screen');
             const paper = document.getElementById('paper-note');
             
-            // Reset for animation effect
             paper.classList.remove('uncrumpled');
             paper.classList.add('crumpled');
             noteScreen.classList.remove('hidden');
