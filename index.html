@@ -71,7 +71,7 @@
         }
 
         input::placeholder {
-            color: #555; /* Darker placeholder so it's subtle */
+            color: #555;
         }
 
         button.primary-btn {
@@ -96,7 +96,21 @@
             margin-top: 15px;
             font-size: 0.9rem;
             font-weight: bold;
-            min-height: 25px; /* Keeps space so layout doesn't jump */
+            min-height: 25px;
+        }
+
+        /* Drake Quote Styling */
+        .drake-quote {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.85rem;
+            color: #ffb7c5; /* Pink text to pop against the black */
+            font-style: italic;
+            width: 80%;
+            max-width: 400px;
+            line-height: 1.4;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
         }
 
         /* --- 2. NOTE SCREEN --- */
@@ -261,6 +275,8 @@
         <input type="password" id="password-input" placeholder="???">
         <button class="primary-btn" onclick="checkPassword()">Unlock My Heart</button>
         <div class="error-msg" id="error-msg"></div>
+        
+        <div id="drake-quote-container" class="drake-quote"></div>
     </div>
 
     <div id="note-screen" class="screen hidden">
@@ -319,7 +335,6 @@
     <script>
         // --- LOGIC ---
 
-        // List of funny messages when she gets it wrong
         const wrongMessages = [
             "Nope! Try again beautiful.",
             "Wrong! Do you even know me? 😜",
@@ -331,6 +346,33 @@
             "Access Denied: Not enough love detected!"
         ];
 
+        // Drake Love Quotes
+        const drakeQuotes = [
+            `"I got my eyes on you, you're everything that I see."`,
+            `"Sweatpants, hair tied, chillin' with no makeup on, that's when you're the prettiest."`,
+            `"I want your hot love and emotion, endlessly."`,
+            `"You the best I ever had."`,
+            `"I know exactly who you are, and I love you for it."`
+        ];
+
+        // Function to set a random quote
+        function setRandomDrakeQuote() {
+            const quoteEl = document.getElementById('drake-quote-container');
+            const randomQuote = drakeQuotes[Math.floor(Math.random() * drakeQuotes.length)];
+            
+            // Small fade effect when changing quotes
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteEl.innerHTML = `${randomQuote}<br><br><b>— Drake</b>`;
+                quoteEl.style.opacity = 0.8;
+            }, 300);
+        }
+
+        // Initialize a quote when the page loads
+        window.onload = function() {
+            setRandomDrakeQuote();
+        };
+
         function checkPassword() {
             const input = document.getElementById('password-input').value;
             const errorMsg = document.getElementById('error-msg');
@@ -341,10 +383,13 @@
                 document.getElementById('password-screen').classList.add('hidden');
                 revealNote();
             } else {
-                // Wrong Password - Pick a random funny message
+                // Wrong Password - Update the funny message
                 const randomMsg = wrongMessages[Math.floor(Math.random() * wrongMessages.length)];
                 errorMsg.innerText = randomMsg;
                 
+                // Also change the Drake quote for extra dramatic effect!
+                setRandomDrakeQuote();
+
                 // Clear input
                 document.getElementById('password-input').value = "";
             }
