@@ -5,23 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Queen</title>
     <style>
-        /* --- RESET & BASICS --- */
+        /* --- ELITE RESET & BASICS --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Courier New', Courier, monospace;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #ffe6ea;
-            color: #000;
+            background-color: #050505; /* Deep luxury black */
+            color: #ffffff;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             text-align: center;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* High-fashion serif font for headings */
+        h1, h2, .vogue-text {
+            font-family: 'Didot', 'Playfair Display', 'Georgia', serif;
+            font-weight: normal;
+            letter-spacing: 2px;
         }
 
         /* --- SCREENS --- */
@@ -34,319 +42,461 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            transition: opacity 0.5s ease;
+            opacity: 1;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+            visibility: visible;
         }
 
         .hidden {
-            display: none !important;
             opacity: 0;
+            visibility: hidden;
             pointer-events: none;
         }
 
         /* --- 1. PASSWORD SCREEN --- */
         #password-screen {
-            background-color: #000;
-            color: #fff;
+            background: radial-gradient(circle at center, #1a050d 0%, #050505 100%);
             z-index: 10;
         }
 
-        h2 {
-            margin-bottom: 20px;
+        #password-screen h2 {
             font-size: 1.5rem;
-            color: #ffb7c5;
+            margin-bottom: 50px;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 40px;
+            width: 80%;
+            max-width: 300px;
         }
 
         input {
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 2px solid #ffb7c5;
+            width: 100%;
+            padding: 15px 0;
+            font-size: 1.5rem;
+            color: #fff;
             background: transparent;
-            color: white;
-            border-radius: 30px;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             outline: none;
             text-align: center;
-            width: 80%;
-            max-width: 300px;
-            margin-bottom: 20px;
+            letter-spacing: 8px;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        input:focus {
+            border-bottom-color: #FF0055; /* Sexy Neon Pink */
+            box-shadow: 0 10px 10px -10px rgba(255, 0, 85, 0.5);
         }
 
         input::placeholder {
-            color: #555;
+            color: rgba(255, 255, 255, 0.1);
+            letter-spacing: 4px;
+            font-size: 1rem;
+            text-transform: uppercase;
         }
 
         button.primary-btn {
-            background-color: #fff;
-            color: #000;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            border-radius: 30px;
+            background: transparent;
+            color: #FF0055;
+            border: 1px solid #FF0055;
+            padding: 15px 50px;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border-radius: 2px;
             cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        button.primary-btn:active {
-            transform: scale(0.95);
+        button.primary-btn:hover, button.primary-btn:active {
+            background: #FF0055;
+            color: #000;
+            box-shadow: 0 0 25px rgba(255, 0, 85, 0.6);
+            transform: translateY(-2px);
         }
 
         .error-msg {
-            color: #ff4d4d;
+            color: #FF0055;
             height: 20px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            margin-top: 25px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             min-height: 25px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
         }
 
-        /* Drake Quote Styling */
+        /* Drake Quote - Premium Styling */
         .drake-quote {
             position: absolute;
-            bottom: 40px;
-            font-size: 0.85rem;
-            color: #ffb7c5; /* Pink text to pop against the black */
+            bottom: 60px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-family: 'Georgia', serif;
             font-style: italic;
-            width: 80%;
-            max-width: 400px;
-            line-height: 1.4;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            width: 85%;
+            max-width: 450px;
+            line-height: 1.8;
+            transition: opacity 0.8s ease;
         }
 
-        /* --- 2. NOTE SCREEN --- */
+        .drake-quote b {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-style: normal;
+            color: #FF0055;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* --- 2. CINEMATIC NOTE SCREEN --- */
         #note-screen {
-            background-color: #ffe6ea;
+            background-color: #050505;
             z-index: 9;
-            perspective: 1000px;
         }
 
-        .paper {
-            background-color: #fff;
+        .cinematic-letter {
             width: 90%;
-            max-width: 400px;
-            padding: 40px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            font-family: 'Brush Script MT', cursive;
-            font-size: 1.5rem;
-            line-height: 1.6;
-            color: #000;
-            transform-origin: center;
-            transition: transform 1.5s ease-out;
+            max-width: 600px;
+            text-align: center;
+            padding: 40px;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            filter: blur(15px);
+            transition: all 2.5s cubic-bezier(0.25, 1, 0.5, 1); /* Ultra smooth, slow reveal */
         }
 
-        .crumpled {
-            transform: scale(0.1) rotate(720deg);
+        .cinematic-letter.revealed {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            filter: blur(0);
         }
 
-        .uncrumpled {
-            transform: scale(1) rotate(0deg);
+        .cinematic-letter p {
+            font-size: 2rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #fff;
+            font-family: 'Didot', 'Georgia', serif;
+        }
+
+        .cinematic-letter p:nth-child(2) {
+            color: #FF0055;
+            font-style: italic;
+            font-size: 2.2rem;
         }
 
         .signature {
-            margin-top: 20px;
-            font-weight: bold;
+            margin-top: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.5);
             display: block;
-            text-align: right;
+            text-transform: uppercase;
+            font-family: 'Helvetica Neue', sans-serif;
         }
 
         .continue-hint {
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: #888;
-            font-family: sans-serif;
-            animation: fadeIn 2s 2s forwards;
-            opacity: 0;
+            position: absolute;
+            bottom: 50px;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            animation: pulseFade 4s infinite;
             cursor: pointer;
+            display: none;
+            padding: 10px 20px;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .continue-hint:active {
+            border-color: #FF0055;
+            color: #FF0055;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        @keyframes pulseFade {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.8; }
         }
 
-        /* --- 3. MENU SCREEN --- */
+        /* --- 3. ELITE MENU SCREEN --- */
         #menu-screen {
-            background-color: #fff;
+            background: #050505;
             z-index: 8;
         }
 
         .menu-title {
-            color: #000;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            font-family: sans-serif;
-            letter-spacing: 2px;
+            color: #FF0055;
+            font-size: 0.75rem;
+            letter-spacing: 10px;
+            margin-bottom: 70px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            width: 100%;
         }
 
         .menu-btn {
-            background-color: #000;
+            background: none;
             color: #fff;
-            width: 80%;
-            max-width: 300px;
-            padding: 20px;
-            margin: 10px 0;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
-            transition: transform 0.2s;
-            cursor: pointer;
+            font-family: 'Didot', 'Georgia', serif;
+            font-size: 3rem;
             border: none;
-            display: block;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            position: relative;
+            opacity: 0.6;
         }
 
-        .menu-btn:active {
-            transform: scale(0.95);
+        .menu-btn:active, .menu-btn:hover {
+            color: #FF0055;
+            opacity: 1;
+            transform: scale(1.05);
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
         }
 
         /* --- 4. CONTENT VIEWS --- */
         .back-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             background: none;
             border: none;
-            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
             cursor: pointer;
+            transition: all 0.3s;
+            z-index: 20;
+        }
+
+        .back-btn:active {
+            color: #FF0055;
+            letter-spacing: 6px;
+        }
+
+        .section-header {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 50px;
+            margin-top: 40px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
         }
 
         /* Gallery Specifics */
         .photo-frame {
-            background: white;
-            padding: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            transform: rotate(-3deg);
-            margin-top: 50px;
-            width: 85%;
-            max-width: 350px;
+            width: 90%;
+            max-width: 380px;
+            position: relative;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
         }
         
         .photo-frame img {
             width: 100%;
             display: block;
             border-radius: 2px;
+            filter: contrast(110%) saturate(1.1); /* Slight pop to the image */
         }
 
-        /* Music Specifics */
+        .photo-caption {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Didot', 'Georgia', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.4rem;
+        }
+
+        /* Glassmorphism Music Player */
+        .glass-container {
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
         .song-link {
             display: flex;
             align-items: center;
-            background: white;
-            width: 90%;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 25px 20px;
+            border-radius: 8px;
             text-decoration: none;
-            color: black;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            border-left: 5px solid #ff69b4;
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .song-link:active {
-            transform: scale(0.98);
+        .song-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: #FF0055;
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+            transform-origin: bottom;
+        }
+
+        .song-link:active, .song-link:hover {
+            background: rgba(255, 0, 85, 0.05);
+            border-color: rgba(255, 0, 85, 0.2);
+            transform: translateX(10px);
+        }
+
+        .song-link:active::before, .song-link:hover::before {
+            transform: scaleY(1);
         }
 
         .song-info {
             text-align: left;
-            margin-left: 15px;
+            margin-left: 25px;
         }
 
         .song-title {
-            font-weight: bold;
-            font-size: 1rem;
+            font-family: 'Didot', 'Georgia', serif;
+            font-size: 1.3rem;
             display: block;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
         
         .song-artist {
-            font-size: 0.8rem;
-            color: #666;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .music-icon {
-            font-size: 1.5rem;
+            font-size: 0.9rem;
+            color: #FF0055;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
     <div id="password-screen" class="screen">
-        <h2>Enter Password</h2>
-        <input type="password" id="password-input" placeholder="???">
-        <button class="primary-btn" onclick="checkPassword()">Unlock My Heart</button>
+        <h2 class="vogue-text">The Archive</h2>
+        
+        <div class="input-group">
+            <input type="password" id="password-input" placeholder="Passcode">
+        </div>
+        
+        <button class="primary-btn" onclick="checkPassword()">Unlock</button>
         <div class="error-msg" id="error-msg"></div>
         
         <div id="drake-quote-container" class="drake-quote"></div>
     </div>
 
     <div id="note-screen" class="screen hidden">
-        <div class="paper crumpled" id="paper-note">
+        <div class="cinematic-letter" id="paper-note">
             <p>I love you forever my Queen.</p>
-            <p>You make my earth shake!!!</p>
+            <p>You make my earth shake.</p>
             <span class="signature">From K.</span>
         </div>
-        <div class="continue-hint" onclick="goToMenu()">Click to continue...</div>
+        <div class="continue-hint" onclick="goToMenu()">Enter the Archive</div>
     </div>
 
     <div id="menu-screen" class="screen hidden">
-        <h1 class="menu-title">FOR YOU</h1>
-        <button class="menu-btn" onclick="showNoteAgain()">Letter</button>
-        <button class="menu-btn" onclick="showGallery()">Gallery</button>
-        <button class="menu-btn" onclick="showMusic()">Music</button>
-    </div>
-
-    <div id="gallery-screen" class="screen hidden" style="background: #fff;">
-        <button class="back-btn" onclick="goToMenu()">← Back</button>
-        <div class="photo-frame">
-            <img src="baby.jpg" alt="Us">
-            <p style="margin-top: 10px; font-family: 'Brush Script MT', cursive; font-size: 1.2rem;">My Favorite View</p>
+        <div class="menu-title">Curated For You</div>
+        <div class="menu-links">
+            <button class="menu-btn" onclick="showNoteAgain()">The Words</button>
+            <button class="menu-btn" onclick="showGallery()">The Vision</button>
+            <button class="menu-btn" onclick="showMusic()">The Sound</button>
         </div>
     </div>
 
-    <div id="music-screen" class="screen hidden" style="background: #ffe6ea;">
-        <button class="back-btn" onclick="goToMenu()">← Back</button>
-        <h2 style="color: black; margin-top: 50px; margin-bottom: 20px;">Our Playlist</h2>
+    <div id="gallery-screen" class="screen hidden">
+        <button class="back-btn" onclick="goToMenu()">Return</button>
+        <div class="section-header vogue-text">The Vision</div>
+        <div class="photo-frame">
+            <img src="baby.jpg" alt="Us">
+            <div class="photo-caption">My Favorite View</div>
+        </div>
+    </div>
+
+    <div id="music-screen" class="screen hidden">
+        <button class="back-btn" onclick="goToMenu()">Return</button>
+        <div class="section-header vogue-text">The Sound</div>
         
-        <a href="https://music.apple.com/za/album/all-i-see-is-you/1863100026?i=1863100027" target="_blank" class="song-link">
-            <span class="music-icon">🎵</span>
-            <div class="song-info">
-                <span class="song-title">All I See Is You</span>
-                <span class="song-artist">Apple Music</span>
-            </div>
-        </a>
+        <div class="glass-container">
+            <a href="https://music.apple.com/za/album/all-i-see-is-you/1863100026?i=1863100027" target="_blank" class="song-link">
+                <span class="music-icon">PLAY</span>
+                <div class="song-info">
+                    <span class="song-title">All I See Is You</span>
+                    <span class="song-artist">Apple Music</span>
+                </div>
+            </a>
 
-        <a href="https://music.apple.com/za/album/hold-on-were-going-home-feat-majid-jordan/1440872495?i=1440873033" target="_blank" class="song-link">
-            <span class="music-icon">🎵</span>
-            <div class="song-info">
-                <span class="song-title">Hold On, We're Going Home</span>
-                <span class="song-artist">Drake ft. Majid Jordan</span>
-            </div>
-        </a>
+            <a href="https://music.apple.com/za/album/hold-on-were-going-home-feat-majid-jordan/1440872495?i=1440873033" target="_blank" class="song-link">
+                <span class="music-icon">PLAY</span>
+                <div class="song-info">
+                    <span class="song-title">Hold On, We're Going Home</span>
+                    <span class="song-artist">Drake ft. Majid Jordan</span>
+                </div>
+            </a>
 
-        <a href="https://music.apple.com/za/album/best-part-feat-h-e-r/1799080774?i=1799080776" target="_blank" class="song-link">
-            <span class="music-icon">🎵</span>
-            <div class="song-info">
-                <span class="song-title">Best Part</span>
-                <span class="song-artist">Daniel Caesar ft. H.E.R.</span>
-            </div>
-        </a>
+            <a href="https://music.apple.com/za/album/best-part-feat-h-e-r/1799080774?i=1799080776" target="_blank" class="song-link">
+                <span class="music-icon">PLAY</span>
+                <div class="song-info">
+                    <span class="song-title">Best Part</span>
+                    <span class="song-artist">Daniel Caesar ft. H.E.R.</span>
+                </div>
+            </a>
+        </div>
     </div>
 
     <script>
         // --- LOGIC ---
 
         const wrongMessages = [
-            "Nope! Try again beautiful.",
-            "Wrong! Do you even know me? 😜",
-            "Not that one! Think harder...",
-            "Are you guessing? 🤨",
-            "Hint: It's a very special day!",
-            "Ouch. Wrong date!",
-            "Really? You forgot? 🥺",
-            "Access Denied: Not enough love detected!"
+            "Access Denied.",
+            "Incorrect. Try again, beautiful.",
+            "Not quite. Focus.",
+            "Are you guessing?",
+            "Wrong passcode.",
+            "Try again."
         ];
 
-        // Drake Love Quotes
         const drakeQuotes = [
             `"I got my eyes on you, you're everything that I see."`,
             `"Sweatpants, hair tied, chillin' with no makeup on, that's when you're the prettiest."`,
@@ -355,20 +505,17 @@
             `"I know exactly who you are, and I love you for it."`
         ];
 
-        // Function to set a random quote
         function setRandomDrakeQuote() {
             const quoteEl = document.getElementById('drake-quote-container');
             const randomQuote = drakeQuotes[Math.floor(Math.random() * drakeQuotes.length)];
             
-            // Small fade effect when changing quotes
             quoteEl.style.opacity = 0;
             setTimeout(() => {
-                quoteEl.innerHTML = `${randomQuote}<br><br><b>— Drake</b>`;
-                quoteEl.style.opacity = 0.8;
-            }, 300);
+                quoteEl.innerHTML = `${randomQuote} <b>Drake</b>`;
+                quoteEl.style.opacity = 1;
+            }, 600);
         }
 
-        // Initialize a quote when the page loads
         window.onload = function() {
             setRandomDrakeQuote();
         };
@@ -379,18 +526,18 @@
 
             // Passcode: 02082005
             if (input === "02082005") {
-                // Correct Password
                 document.getElementById('password-screen').classList.add('hidden');
                 revealNote();
             } else {
-                // Wrong Password - Update the funny message
                 const randomMsg = wrongMessages[Math.floor(Math.random() * wrongMessages.length)];
-                errorMsg.innerText = randomMsg;
+                errorMsg.style.opacity = 0;
                 
-                // Also change the Drake quote for extra dramatic effect!
+                setTimeout(() => {
+                    errorMsg.innerText = randomMsg;
+                    errorMsg.style.opacity = 1;
+                }, 200);
+                
                 setRandomDrakeQuote();
-
-                // Clear input
                 document.getElementById('password-input').value = "";
             }
         }
@@ -401,12 +548,14 @@
             
             noteScreen.classList.remove('hidden');
             
+            // Wait for screen to appear, then trigger the cinematic reveal
             setTimeout(() => {
-                paper.classList.remove('crumpled');
-                paper.classList.add('uncrumpled');
-            }, 100);
+                paper.classList.add('revealed');
+            }, 500);
 
-            document.querySelector('.continue-hint').style.display = 'block';
+            setTimeout(() => {
+                document.querySelector('.continue-hint').style.display = 'inline-block';
+            }, 3000);
         }
 
         function goToMenu() {
@@ -419,13 +568,11 @@
             const noteScreen = document.getElementById('note-screen');
             const paper = document.getElementById('paper-note');
             
-            paper.classList.remove('uncrumpled');
-            paper.classList.add('crumpled');
+            paper.classList.remove('revealed');
             noteScreen.classList.remove('hidden');
 
             setTimeout(() => {
-                paper.classList.remove('crumpled');
-                paper.classList.add('uncrumpled');
+                paper.classList.add('revealed');
             }, 100);
         }
 
@@ -446,3 +593,4 @@
     </script>
 </body>
 </html>
+
